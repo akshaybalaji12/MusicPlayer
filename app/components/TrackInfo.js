@@ -4,14 +4,15 @@ import { isFavourite } from '../Utilities';
 
 export const TrackInfo = (props) => {
 
-    const favIcon = isFavourite() ? '../../img/round_favorite_white_18.png' : '../../img/round_favorite_border_white_18.png';
+    const favIcon = props.isFavourite ? require('../../img/round_favorite_white_18.png') : require('../../img/round_favorite_border_white_18.png');
+    const favStyle = props.isFavourite ? styles.buttonToggled : styles.button;
 
     return (
 
         <View style={styles.container}>
 
-            <TouchableOpacity style={styles.button}>
-                <Image source={require('../../img/round_add_circle_outline_white_18.png')} />
+            <TouchableOpacity>
+                <Image style={styles.button} source={require('../../img/round_add_circle_outline_white_18.png')} />
             </TouchableOpacity>
 
             <View style={styles.textContainer}>
@@ -24,8 +25,8 @@ export const TrackInfo = (props) => {
                 </Text>
             </View>
 
-            <TouchableOpacity style={styles.button}>
-                <Image source={require('../../img/round_favorite_border_white_18.png')} />
+            <TouchableOpacity onPress={props.onFavToggle}>
+                <Image style={favStyle} source={favIcon} />
             </TouchableOpacity>
 
         </View>
@@ -64,11 +65,23 @@ const styles = StyleSheet.create({
     },
 
     button: {
-        paddingTop: 10,
+        marginTop: 10,
         marginLeft: 15,
         marginRight:15,
         opacity: 1,
-        tintColor: '#fafafa'
+        tintColor: '#fafafa',
+        width: 30,
+        height: 30
+    },
+
+    buttonToggled: {
+        marginTop: 10,
+        marginLeft: 15,
+        marginRight:15,
+        opacity: 1,
+        tintColor: '#ec5858',
+        width: 30,
+        height: 30
     }
 
 })

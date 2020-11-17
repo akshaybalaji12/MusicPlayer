@@ -1,11 +1,8 @@
 import React from 'react';
-import { View, DeviceEventEmitter, StatusBar } from 'react-native';
-import { Header } from './components/Header.js';
+import { View, DeviceEventEmitter, StatusBar, StyleSheet } from 'react-native';
 import { requestPermission } from './Utilities';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
-import { AlbumArt } from './components/AlbumArt.js';
-import { TrackInfo } from './components/TrackInfo.js';
-import { Seekbar } from './components/Seekbar.js';
+import { NowPlaying } from './screens/NowPlaying.js';
 
 export default class App extends React.Component {
 
@@ -15,12 +12,14 @@ export default class App extends React.Component {
             tracks: [],
             albums: []
         };
+
+        requestPermission();
         
         this.getAlbums = () => {
             RNAndroidAudioStore.getAlbums({ artist : '' })
                 .then(f => {
                 this.setState({ ...this.state, albums: f });
-                console.log(this.state.albums);
+                //console.log(this.state.albums);
                 })
                 .catch(er => alert(JSON.stringify(error)));
         };
@@ -40,8 +39,12 @@ export default class App extends React.Component {
     // }
 
     componentDidMount() {
-        requestPermission();
-        this.getAlbums();
+
+        if(requestPermission()) {
+            this.getAlbums();
+        } else {
+            requestPermission();
+        }
 
         // DeviceEventEmitter.addListener(
         //     'onBatchReceived',
@@ -61,11 +64,9 @@ export default class App extends React.Component {
 
         return (
 
-            <View style={{flex: 1, backgroundColor: '#040404'}}>
+            <View style={styles.container}>
                 <StatusBar backgroundColor='#040404' />
-                <Header title={'Vaaranam Aayiram'.toUpperCase()}/>
-                <AlbumArt />
-                <TrackInfo />
+                <NowPlaying />
             </View>
 
         )
@@ -73,3 +74,18 @@ export default class App extends React.Component {
     }
 
 }
+
+//file:///storage/emualated/0/DCIM/Camera/IMG_20180714_060814.jpg
+//<Image source={{uri: 'file:///storage/emualated/0/DCIM/Camera/IMG_20180714_060814.jpg'}} style={{width: 200, height: 200}} />
+
+
+const styles = StyleSheet.create({
+    
+    container: {
+        flex: 1,
+        backgroundColor: '#040404',
+    }
+
+})
+
+//

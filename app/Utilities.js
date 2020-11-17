@@ -21,9 +21,9 @@ export const requestPermission = async () => {
         );
 
         if(granted === PermissionsAndroid.RESULTS.GRANTED) {
-            console.log('Permission granted')
+            return true;
         } else {
-            requestPermission();
+            return false;
         }
 
     } catch(error) {
