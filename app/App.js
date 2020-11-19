@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, DeviceEventEmitter, StatusBar, StyleSheet } from 'react-native';
+import { View, DeviceEventEmitter, StatusBar, StyleSheet, Dimensions } from 'react-native';
 import { requestPermission } from './Utilities';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
-import { NowPlaying } from './screens/NowPlaying.js';
+import { NowPlayingScreen } from './screens/NowPlayingScreen.js';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import { Button } from 'react-native';
+import { AlbumsScreen } from './screens/AlbumsScreen';
+import { NowPlayingComponent } from './components/NowPlayingComponent';
 
 export default class App extends React.Component {
 
@@ -10,7 +14,8 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             tracks: [],
-            albums: []
+            albums: [],
+            filteredAlbums: [],
         };
 
         requestPermission();
@@ -18,11 +23,19 @@ export default class App extends React.Component {
         this.getAlbums = () => {
             RNAndroidAudioStore.getAlbums({ artist : '' })
                 .then(f => {
-                this.setState({ ...this.state, albums: f });
+                this.setState({ ...this.state, albums: f, filteredAlbums: f });
+                // let filteredAlbums = this.state.albums.filter(function(e) {
+                //     return e.album.includes("Aay")
+                // });
+                // this.setState({
+                //     filteredAlbums: filteredAlbums
+                // });
                 //console.log(this.state.albums);
                 })
                 .catch(er => alert(JSON.stringify(error)));
         };
+
+        this.onClosePressed = this.onClosePressed.bind(this);
         
     }
 
@@ -60,13 +73,28 @@ export default class App extends React.Component {
         DeviceEventEmitter.removeAllListeners();
     }
 
+    onClosePressed = () => {
+
+        this.RBSheet.close();
+
+    }
+
     render() {
+
+        const { width, height } = Dimensions.get('window');
 
         return (
 
             <View style={styles.container}>
                 <StatusBar backgroundColor='#040404' />
-                <NowPlaying />
+                <AlbumsScreen albums={this.state.filteredAlbums} />
+                <NowPlayingComponent style={styles.nowPlaying} onPress={() => this.RBSheet.open()} />
+                <RBSheet
+                    ref={ref => {this.RBSheet = ref;}}
+                    height={height}
+                    >
+                    <NowPlayingScreen onClosePressed={this.onClosePressed}/>
+                </RBSheet>
             </View>
 
         )
@@ -84,7 +112,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#040404',
-    }
+        flexDirection: 'column',
+    },
 
 })
 

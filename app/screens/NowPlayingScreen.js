@@ -6,7 +6,7 @@ import { TrackInfo } from '../components/TrackInfo.js';
 import { Seekbar } from '../components/Seekbar.js';
 import { Controls } from '../components/Controls.js';
 
-export class NowPlaying extends React.Component {
+export class NowPlayingScreen extends React.Component {
 
     constructor(props){
         super(props);
@@ -39,7 +39,7 @@ export class NowPlaying extends React.Component {
         return(
 
             <View style={styles.container}>
-                <Header title='Vaaranam Aayiram'/>
+                <Header title='Vaaranam Aayiram' onClosePressed={this.props.onClosePressed}/>
                 <AlbumArt album = 'Vaaranam Aayiram'/>
                 <View>
                     <TrackInfo isFavourite={this.state.isFavourite} onFavToggle={this.onFavToggle} />

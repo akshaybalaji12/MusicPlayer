@@ -9,19 +9,6 @@ const apiURL = 'http://ws.audioscrobbler.com/2.0/?method=album.search&album=';
 
 export const AlbumArt = (props) => {
 
-    const [albumArt, setAlbumArt] = useState('');
-
-    useEffect(() => {
-
-        fetch(apiURL+props.album+'&api_key='+apiKey+'&format=json')
-        .then(response => response.json())
-        .then(data => {
-            const imageData = data.results.albummatches.album[0].image[3]['#text'];
-            setAlbumArt(imageData);
-        })
-
-    })
-
     return (
 
         <View style={styles.container}>

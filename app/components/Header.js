@@ -6,7 +6,7 @@ export const Header = (props) => {
     return (
         <View style={styles.container}>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.onClosePressed}>
                 <Image style={styles.button} source={require('../../img/round_keyboard_arrow_down_white_18.png')} />
             </TouchableOpacity>
 
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
 
     button: {
         opacity: 1,
-        height: 25,
-        width: 25
+        height: 30,
+        width: 30
     }
 
 })

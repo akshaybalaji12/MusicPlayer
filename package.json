@@ -13,7 +13,8 @@
     "@react-native-community/slider": "^3.0.3",
     "react": "16.13.1",
     "react-native": "0.63.3",
-    "react-native-get-music-files": "git+https://github.com/cinder92/react-native-get-music-files.git"
+    "react-native-get-music-files": "git+https://github.com/cinder92/react-native-get-music-files.git",
+    "react-native-raw-bottom-sheet": "^2.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
