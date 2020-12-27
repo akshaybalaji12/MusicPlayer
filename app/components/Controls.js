@@ -33,7 +33,7 @@ export const Controls = (props) => {
             </TouchableOpacity>
 
             <TouchableOpacity>
-                <Image style={styles.trackControls} source={require('../../img/round_repeat_white_18.png')} />
+                <Image style={styles.trackControlsToggled} source={require('../../img/round_repeat_white_18.png')} />
             </TouchableOpacity>
 
         </View>
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
         height: 70,
         width:70,
         opacity:1,
+        tintColor: '#fff'
     },
 
     button: {
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
         height: 25,
         width: 25,
         opacity: 1,
-        tintColor: '#bc6ff1'
+        tintColor: '#4acfac'
     }
 
 })

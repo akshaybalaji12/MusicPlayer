@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     albumArt: {
         width: imageSize,
         height: imageSize,
-        alignSelf: 'center'
+        alignSelf: 'center',
     }
 
 })

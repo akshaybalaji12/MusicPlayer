@@ -7,15 +7,20 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { Button } from 'react-native';
 import { AlbumsScreen } from './screens/AlbumsScreen';
 import { NowPlayingComponent } from './components/NowPlayingComponent';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { TabBar } from './components/TabBar';
 
 export default class App extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            albumArt: '',
             tracks: [],
             albums: [],
             filteredAlbums: [],
+            isList: false
         };
 
         requestPermission();
@@ -36,20 +41,10 @@ export default class App extends React.Component {
         };
 
         this.onClosePressed = this.onClosePressed.bind(this);
+        this.onAlbumPressed = this.onAlbumPressed.bind(this);
+        this.onNowPlayingPressed = this.onNowPlayingPressed.bind(this);
         
     }
-
-    // getAll = (artist) => {
-
-    //     RNAndroidAudioStore.getAlbums({artist: artist})
-    //     .then(f => {
-    //         this.setState({ ...this.state, albums: f })
-    //     })
-    //     .catch(error => alert(JSON.stringify(error)));
-
-    //     console.log(this.state.albums);
-
-    // }
 
     componentDidMount() {
 
@@ -58,14 +53,6 @@ export default class App extends React.Component {
         } else {
             requestPermission();
         }
-
-        // DeviceEventEmitter.addListener(
-        //     'onBatchReceived',
-        //     (params) => {
-        //         console.log(this.state.tracks);
-        //         this.setState({ ...this.state, tracks: [...this.state.tracks, params.batch] })
-        //     }
-        // )
 
     }
 
@@ -79,21 +66,55 @@ export default class App extends React.Component {
 
     }
 
+    onAlbumPressed = (albumInfo) => {
+
+        RNAndroidAudioStore.getSongs({ album: albumInfo.albumName })
+            .then(songs => {
+
+                this.setState({
+                    isList: true,
+                    tracks: songs,
+                    albumArt: albumInfo.albumArt
+                });
+        
+                this.RBSheet.open();
+
+            })
+
+    }
+
+    onNowPlayingPressed = () => {
+
+        this.setState({
+            isList: false
+        });
+
+        this.RBSheet.open();
+
+    }
+
     render() {
 
         const { width, height } = Dimensions.get('window');
+        const Tab = createMaterialTopTabNavigator();
 
         return (
 
             <View style={styles.container}>
                 <StatusBar backgroundColor='#040404' />
-                <AlbumsScreen albums={this.state.filteredAlbums} />
-                <NowPlayingComponent style={styles.nowPlaying} onPress={() => this.RBSheet.open()} />
+                <NavigationContainer>
+                    <Tab.Navigator tabBar={props => <TabBar {...props} />}>
+                        <Tab.Screen name="Tracks" component={AlbumsScreen} />
+                        <Tab.Screen name="Albums" component={NowPlayingScreen} />
+                        <Tab.Screen name="Artists" component={AlbumsScreen} />
+                    </Tab.Navigator>
+                </NavigationContainer>
+                <NowPlayingComponent style={styles.nowPlaying} onPress={this.onNowPlayingPressed} />
                 <RBSheet
                     ref={ref => {this.RBSheet = ref;}}
                     height={height}
                     >
-                    <NowPlayingScreen onClosePressed={this.onClosePressed}/>
+                    <NowPlayingScreen isList={this.state.isList} onClosePressed={this.onClosePressed}/>
                 </RBSheet>
             </View>
 
@@ -102,9 +123,6 @@ export default class App extends React.Component {
     }
 
 }
-
-//file:///storage/emualated/0/DCIM/Camera/IMG_20180714_060814.jpg
-//<Image source={{uri: 'file:///storage/emualated/0/DCIM/Camera/IMG_20180714_060814.jpg'}} style={{width: 200, height: 200}} />
 
 
 const styles = StyleSheet.create({
@@ -116,5 +134,3 @@ const styles = StyleSheet.create({
     },
 
 })
-
-//

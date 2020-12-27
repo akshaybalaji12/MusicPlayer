@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 
     container: {
         height: 75,
-        borderTopColor: '#fafafa',
+        borderTopColor: '#4acfac',
         borderWidth: 0.5,
         paddingStart: 15,
         paddingEnd: 15,
@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     albumArt: {
         height: 60,
         width: 60,
-        paddingEnd: 5
+        paddingEnd: 5,
+        borderRadius: 5
     },
 
     trackInfo: {
@@ -70,24 +71,25 @@ const styles = StyleSheet.create({
     },
 
     trackName: {
-        fontFamily: 'AvantGarde',
+        fontFamily: 'ProductSansBold',
         fontSize: 15,
         textAlign: 'left',
         color: '#fff',
     },
 
     trackArtist: {
-        fontFamily: 'AvantGarde',
+        fontFamily: 'ProductSansBold',
         fontSize: 12,
         textAlign: 'left',
-        color: '#fff',
+        color: '#bbb',
     },
 
     button: {
         opacity: 1,
         height: 40,
         width: 40,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        tintColor: '#fff'
     }
 
 })

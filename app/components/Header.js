@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         paddingTop: 5,
         textAlign: 'center',
-        fontFamily: 'AvantGarde'
+        fontFamily: 'ProductSansBold'
     },
 
     textAlbum: {
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         paddingTop: 2,
         textAlign: 'center',
-        fontFamily: 'AvantGarde'
+        fontFamily: 'ProductSansBold'
     },
 
     button: {

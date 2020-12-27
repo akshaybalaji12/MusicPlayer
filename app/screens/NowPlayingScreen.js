@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Header } from '../components/Header.js';
 import { AlbumArt } from '../components/AlbumArt.js';
 import { TrackInfo } from '../components/TrackInfo.js';
@@ -34,9 +34,9 @@ export class NowPlayingScreen extends React.Component {
 
     }
 
-    render() {
+    showNowPlaying = (props) => {
 
-        return(
+        return (
 
             <View style={styles.container}>
                 <Header title='Vaaranam Aayiram' onClosePressed={this.props.onClosePressed}/>
@@ -50,6 +50,24 @@ export class NowPlayingScreen extends React.Component {
             </View>
 
         )
+
+    }
+
+    showList = (props) => {
+
+        return (
+
+            <View style={styles.container}>
+                <Text style={{color: '#fafafa'}}>Album List</Text>
+            </View>
+
+        )
+
+    }
+
+    render() {
+
+        return this.props.isList ? this.showList() : this.showNowPlaying()
 
     }
 

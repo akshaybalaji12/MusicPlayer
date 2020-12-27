@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         color: '#fafafa',
         fontSize: 15,
         textAlign: 'center',
-        fontFamily: 'AvantGarde'
+        fontFamily: 'ProductSansBold'
     },
 
     textAlbum: {
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         paddingTop: 2,
         textAlign: 'center',
-        fontFamily: 'AvantGarde'
+        fontFamily: 'ProductSansBold'
     },
 
     button: {

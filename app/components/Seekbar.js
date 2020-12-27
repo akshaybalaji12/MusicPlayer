@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 
     timerText: {
         color: '#fff',
-        fontFamily: 'AvantGarde'
+        fontFamily: 'ProductSansBold'
     },
 
     slider: {
