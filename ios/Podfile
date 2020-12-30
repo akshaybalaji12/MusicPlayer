@@ -12,6 +12,8 @@ target 'MusicApp' do
 
   pod 'react-native-track-player', :path => '../node_modules/react-native-track-player'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+
   target 'MusicAppTests' do
     inherit! :complete
     # Pods for testing

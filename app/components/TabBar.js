@@ -1,16 +1,18 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 export const TabBar = ({ navigationState, navigation, position }) => {
 
+    var scrollView;
+
     return(
 
         <View style={{
-            height: 80,
+            height: 60,
             backgroundColor: '#040404',
             flexDirection: 'row',
-            justifyContent: 'space-evenly',
+            justifyContent: 'space-around',
             alignItems: 'center'
         }}>
             {navigationState.routes.map((route, index) => {
@@ -24,33 +26,25 @@ export const TabBar = ({ navigationState, navigation, position }) => {
                         target: route.key,
                         canPreventDefault: true,
                     });
-        
+
                     if (!isFocused && !event.defaultPrevented) {
                         navigation.navigate(route.name);
                     }
 
                 }
 
-                const title = route.name;
-                const inputRange = navigationState.routes.map((_, i) => i);
-                const focusAnim = Animated.interpolate(position, {
-                    inputRange: [index - 1, index, index + 1],
-                    outputRange: [0,1,0],
-                });
-
-                console.log(focusAnim);
-
                 return (
 
                     <TouchableOpacity onPress={onPress}
-                    accessibilityRole="button"
-                    accessibilityState={isFocused ? { selected: true } : {}}
+                        accessibilityRole="button"
+                        accessibilityState={isFocused ? { selected: true } : {}}
+                        key={route.key}
                     >
 
                         <Animated.View style={{
                             height: 30,
-                            padding: 10,
-                            margin: 10,
+                            padding: 5,
+                            margin: 5,
                             justifyContent: 'center',
                             backgroundColor: 'transparent'
                         }}>
@@ -59,7 +53,7 @@ export const TabBar = ({ navigationState, navigation, position }) => {
                                 color: isFocused ? '#4acfac' : '#fff',
                                 fontSize: 25
                             }}>
-                                {title}
+                                {route.name}
                             </Animated.Text>
                         </Animated.View>
 
@@ -67,7 +61,7 @@ export const TabBar = ({ navigationState, navigation, position }) => {
 
                 )
 
-            })}
+                })}
         </View>
 
     )

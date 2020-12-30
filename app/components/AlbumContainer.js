@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
         flex: 1,
         height: width/2,
         borderRadius: 10,
-        elevation: 10
     },
 
     text: {
