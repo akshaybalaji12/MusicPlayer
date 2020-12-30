@@ -1,6 +1,6 @@
 import { checkStoragePermissions, getStoragePermission } from '../Utilities';
 import { RNAndroidAudioStore } from "react-native-get-music-files";
-import store from '../store';
+import { store } from '../store';
 import { GET_MUSIC_ALBUMS } from '../constants/action-types';
 
 export const getMedia = () => async (dispatch) => {

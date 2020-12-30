@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 const AlbumsScreen = (props) => {
 
     useEffect(() => {
+        console.log(props.mediaLoaded);
         props.getMedia();
     }, []);
 
