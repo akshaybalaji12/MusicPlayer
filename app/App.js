@@ -2,13 +2,14 @@ import React from 'react';
 import { View, DeviceEventEmitter, StatusBar, StyleSheet, Dimensions } from 'react-native';
 import { NowPlayingScreen } from './screens/NowPlayingScreen.js';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import AlbumsScreen from './screens/AlbumsScreen';
 import PlaylistScreen from './screens/PlaylistsScreen';
+import AlbumNavigation from './navigation/AlbumNavigation';
+import TracksScreen from './screens/TracksScreen';
+import SearchScreen from './screens/SearchScreen';
 import { NowPlayingComponent } from './components/NowPlayingComponent';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { TabBar } from './components/TabBar';
-import { AlbumTracksScreen } from './screens/AlbumTracksScreen';
 
 export default class AppComponent extends React.Component {
 
@@ -55,10 +56,10 @@ export default class AppComponent extends React.Component {
                 <NavigationContainer>
                     <Tab.Navigator
                         tabBar={props => <TabBar {...props} />}>
-                        <Tab.Screen name="Tracks" component={AlbumTracksScreen} />
-                        <Tab.Screen name="Albums" component={AlbumsScreen} />
+                        <Tab.Screen name="Tracks" component={TracksScreen} />
+                        <Tab.Screen name="Albums" component={AlbumNavigation} />
                         <Tab.Screen name="Playlists" component={PlaylistScreen} />
-                        <Tab.Screen name="Search" component={PlaylistScreen} />
+                        <Tab.Screen name="Search" component={SearchScreen} />
                     </Tab.Navigator>
                 </NavigationContainer>
                 <NowPlayingComponent style={styles.nowPlaying} onPress={this.onNowPlayingPressed} />

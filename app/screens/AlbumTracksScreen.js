@@ -1,33 +1,86 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, ScrollView, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, ScrollView, Text, Dimensions } from 'react-native';
 import { AlbumArt } from '../components/AlbumArt.js';
+import { connect } from "react-redux";
+import * as actions from "../actions";
+import { TrackItem } from '../components/TrackItem';
 
-export const AlbumTracksScreen = (props) => {
+const AlbumTracksScreen = (props) => {
 
-    return (
+    const { albumName, albumCover } = props.route.params;
+    
+    const { width, height } = Dimensions.get('window');
 
-        <View style={styles.container}>
-            <AlbumArt album = 'Vaaranam Aayiram'/>
-            <View style={styles.textContainer}>
-                <Text style={styles.textAlbum}>
-                    Vaaranam Aayiram
-                </Text>
-                <Text style={styles.textTracks}>
-                    8 tracks
-                </Text>
+    if(props.songs) {
+
+        return (
+
+            <View style={{
+                flex: 1,
+                backgroundColor: '#040404',
+            }}>
+                <ScrollView 
+                    stickyHeaderIndices={[2]}
+                    contentContainerStyle={{
+                                backgroundColor: '#040404',
+                                alignItems: 'center'
+                            }} style={{ flex : 1, width: width}}>
+                    <AlbumArt albumURI={albumCover} imageSize={width/2}/>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.textAlbum}>
+                            {albumName}
+                        </Text>
+                        <Text style={styles.textTracks}>
+                            {props.songs.length + ' Tracks'}
+                        </Text>
+                    </View>
+                    <TouchableOpacity style={styles.playButton}>
+                        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                            <Text style={styles.playText}>
+                                Play
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View style={styles.container}>
+                        {props.songs.map(track => {
+
+                            return (
+
+                                <TrackItem key={track.id} title={track.title} artist={track.artist} albumCover={albumCover} />
+
+                            )
+
+                        })}
+                    </View>
+                </ScrollView>
             </View>
-            <TouchableOpacity style={styles.playButton}>
-                <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={styles.playText}>
-                        Play
-                    </Text>
-                </View>
-            </TouchableOpacity>
-        </View>
+    
+        )
 
-    )
+    } else {
+
+        return (
+
+            <View style={styles.container}>
+                <Text style={{color: 'white'}}>Fetching</Text>
+            </View>
+
+        )
+
+    }
 
 }
+
+function mapStateToProps(state) {
+    return {
+        songs: state.media.queue,
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    actions
+)(AlbumTracksScreen);
 
 const styles = StyleSheet.create({
     
@@ -40,26 +93,24 @@ const styles = StyleSheet.create({
     },
 
     textContainer: {
-        height: 80,
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     textAlbum: {
-        flex: 1,
         color: '#fff',
-        fontSize: 25,
+        fontSize: 20,
         textAlign: 'center',
         fontFamily: 'ProductSansBold'
     },
 
     textTracks: {
-        flex: 1,
         color: '#bbb',
-        fontSize: 15,
+        fontSize: 18,
         textAlign: 'center',
-        fontFamily: 'ProductSansBold'
+        fontFamily: 'ProductSansBold',
+        margin: 5
     },
 
     playButton: {
@@ -69,13 +120,14 @@ const styles = StyleSheet.create({
         borderColor: '#4acfac',
         backgroundColor: '#4acfac',
         justifyContent: 'center',
-        margin: 2
+        margin: 5,
+        marginTop: 10
     },
 
     playText: {
         color: '#fff',
         fontFamily: 'ProductSansBold',
         fontSize: 20
-    }
+    },
 
 })

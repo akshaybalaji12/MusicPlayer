@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 const PlaylistScreen = (props) => {
 
     const { playlists } = props;
-    console.log(playlists);
     const title = 'Playlist'
     
     function onCreatePlaylist(playlistTitle) {

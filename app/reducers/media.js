@@ -1,6 +1,6 @@
 import { GET_MUSIC_ALBUMS } from '../constants/action-types';
 
-const INITIAL_STATE = { mediaLoaded: false, albums: [] };
+const INITIAL_STATE = { mediaLoaded: false, albums: [], tracks: [], queue: [] };
 
 export default function(state = INITIAL_STATE, action) {
 

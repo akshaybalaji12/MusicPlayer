@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
-import { isFavourite } from '../Utilities';
+import { isFavourite } from '../utilities';
 
 export const TrackInfo = (props) => {
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Dimensions } from 'react-native';
 import { Header } from '../components/Header.js';
 import { AlbumArt } from '../components/AlbumArt.js';
 import { TrackInfo } from '../components/TrackInfo.js';
@@ -36,11 +36,13 @@ export class NowPlayingScreen extends React.Component {
 
     showNowPlaying = (props) => {
 
+        const { width, height } = Dimensions.get('window');
+
         return (
 
             <View style={styles.container}>
                 <Header title='Vaaranam Aayiram' onClosePressed={this.props.onClosePressed}/>
-                <AlbumArt album = 'Vaaranam Aayiram'/>
+                <AlbumArt imageSize={width - 100} albumURI="file:///storage/emulated/0/Android/data/com.android.providers.media/albumthumbs/1530346851674"/>
                 <View>
                     <TrackInfo isFavourite={this.state.isFavourite} onFavToggle={this.onFavToggle} />
                     <Seekbar />

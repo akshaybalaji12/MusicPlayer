@@ -8,40 +8,27 @@ import { useEffect } from 'react';
 const AlbumsScreen = (props) => {
 
     useEffect(() => {
-        console.log(props.mediaLoaded);
         props.getMedia();
     }, []);
 
-    
-    // <TouchableOpacity>
-    //     <Image style={styles.button} source={require('../../img/round_search_white_18.png')} />
-    // </TouchableOpacity>
+    function onAlbumPressed(albumSelected) {
 
+        props.getSongs(albumSelected.album);
+        props.navigation.navigate('album', { albumName: albumSelected.album, albumCover: albumSelected.cover })
+
+    }
+    
     if(props.mediaLoaded) {
 
         return(
 
             <View style={styles.container}>
-                {/* <View style={styles.searchContainer}>
-                    <Image
-                        source={require('../../img/round_search_white_18.png')} //Change your icon image here
-                        style={styles.searchIcon}
-                    />
-    
-                    <TextInput
-                        style={{ flex: 1, color: '#fafafa' }}
-                        placeholder="Search"
-                        placeholderTextColor='#D7D7D8'
-                        fontFamily='ProductSansBold'
-                        underlineColorAndroid="transparent"
-                    />
-                </View> */}
                 <FlatList 
+                    numColumns={2}
                     data={props.albums}
                     renderItem={({item}) => (
-                        <AlbumContainer onAlbumPressed={props.onAlbumPressed} albumArt={item.cover} title={item.album}/>
+                        <AlbumContainer onAlbumPressed={() => onAlbumPressed(item)} albumArt={item.cover} title={item.album}/>
                     )}
-                    numColumns={2}
                     keyExtractor={(item, index) => index}
                 />
             </View>
@@ -61,7 +48,8 @@ const AlbumsScreen = (props) => {
 function mapStateToProps(state) {
     return {
         albums: state.media.albums,
-        mediaLoaded: state.media.mediaLoaded
+        mediaLoaded: state.media.mediaLoaded,
+        tracks: state.media.tracks
     };
 }
 

@@ -51,7 +51,7 @@ export const TabBar = ({ navigationState, navigation, position }) => {
                             <Animated.Text style={{
                                 fontFamily: 'ProductSansBold',
                                 color: isFocused ? '#4acfac' : '#fff',
-                                fontSize: 25
+                                fontSize: 20
                             }}>
                                 {route.name}
                             </Animated.Text>
