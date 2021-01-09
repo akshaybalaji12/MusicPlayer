@@ -29,7 +29,7 @@ const AlbumsScreen = (props) => {
                     renderItem={({item}) => (
                         <AlbumContainer onAlbumPressed={() => onAlbumPressed(item)} albumArt={item.cover} title={item.album}/>
                     )}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                 />
             </View>
     
